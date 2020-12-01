@@ -1,0 +1,202 @@
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in /Users/dongyuangui/work/eclispe_sdk/android-sdk-macosx/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the proguardFiles
+# directive in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+#-optimizations !code/simplification/arithmetic
+#-optimizations !field/removal/writeonly
+#-allowoptimization
+#-optimizations code/removal/advanced,method/removal/parameter
+#-dontoptimize
+
+# 将.class信息中的类名重新定义为"Proguard"字符串
+#-renamesourcefileattribute Proguard
+# 并保留源文件名为"Proguard"字符串，而非原始的类名 并保留行号 // blog from sodino.com
+#-keepattributes SourceFile,LineNumberTable
+-allowaccessmodification
+#-repackageclasses 'com.adhoc'
+-keepattributes *Annotation*,Exceptions, Signature, InnerClasses
+-dontpreverify
+#-dontwarn android.support.**
+#-dontwarn com.adhoc.**
+-keep public class * extends android.app.Activity
+
+-keep public class * extends android.app.Application
+
+-keep public class * extends android.app.Service
+
+-keep public class * extends android.content.BroadcastReceiver
+
+-keep public class * extends android.content.ContentProvider
+
+-keep public class * extends android.view.View {
+    public <init>(android.content.Context);
+    public <init>(android.content.Context,android.util.AttributeSet);
+    public <init>(android.content.Context,android.util.AttributeSet,int);
+    public void set*(...);
+}
+
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+
+-keep class android.support.**{*;}
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *; }
+-keep interface com.squareup.okhttp3.** { *; }
+
+-dontwarn okhttp3.internal.platform.*
+-dontwarn com.taobao.tlog.*
+
+-dontwarn okio.**
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+
+-dontwarn com.alibaba.**
+-dontwarn retrofit2.*
+-dontwarn anet.channel.**
+-dontwarn com.taobao.**
+-dontwarn com.aliyun.**
+
+
+#httpdns
+-keep class com.taobao.** {*;}
+-keep class com.alibaba.** {*;}
+-keep class com.ta.**{*;}
+-keep class com.ut.**{*;}
+-dontwarn com.taobao.**
+-dontwarn com.alibaba.**
+-dontwarn com.ta.**
+-dontwarn com.ut.**
+
+#cps
+-keep class com.taobao.** {*;}
+-keep class com.alibaba.** {*;}
+-keep class com.ta.**{*;}
+-keep class com.ut.**{*;}
+-dontwarn com.taobao.**
+-dontwarn com.alibaba.**
+-dontwarn com.ta.**
+-dontwarn com.ut.**
+-keepclasseswithmembernames class ** {
+native <methods>;
+}
+-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+-keep class com.alipay.** {*;}
+-dontwarn com.alipay.**
+-keep class anet.**{*;}
+-keep class org.android.spdy.**{*;}
+-keep class org.android.agoo.**{*;}
+-dontwarn anet.**
+-dontwarn org.android.spdy.**
+-dontwarn org.android.agoo.**
+
+#hotfix
+#基线包使用，生成mapping.txt
+-printmapping mapping.txt
+#生成的mapping.txt在app/buidl/outputs/mapping/release路径下，移动到/app路径下
+#修复后的项目使用，保证混淆结果一致
+#-applymapping mapping.txt
+#hotfix
+-keep class com.taobao.sophix.**{*;}
+-keep class com.ta.utdid2.device.**{*;}
+#防止inline
+-dontoptimize
+
+#man
+-keep class com.taobao.** {*;}
+-keep class com.alibaba.** {*;}
+-keep class com.ta.**{*;}
+-keep class com.ut.**{*;}
+-dontwarn com.taobao.**
+-dontwarn com.alibaba.**
+-dontwarn com.ta.**
+-dontwarn com.ut.**
+
+#feedback
+-keep class com.taobao.** {*;}
+-keep class com.alibaba.** {*;}
+-keep class com.ta.**{*;}
+-keep class com.ut.**{*;}
+-dontwarn com.taobao.**
+-dontwarn com.alibaba.**
+-dontwarn com.ta.**
+-dontwarn com.ut.**
+
+
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
+}
+
+## for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+-keep class com.sspsdk.**{*;}
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+
+-keep class org.geometerplus.fbreader.formats.**{*;}
+-keep class org.geometerplus.zlibrary.core.**{*;}
+-keep class org.geometerplus.zlibrary.text.model.ZLTextModel{*;}
+
+-keep class org.geometerplus.fbreader.formats.NativeFormatPlugin{*;}
+-keep class org.geometerplus.fbreader.formats.PluginCollection{*;}
+-keep class org.geometerplus.fbreader.Paths{*;}
+-keep class org.geometerplus.fbreader.book.AbstractBook{*;}
+-keep class org.geometerplus.fbreader.book.Book{*;}
+-keep class org.geometerplus.fbreader.book.Tag{*;}
+-keep class org.geometerplus.fbreader.bookmodel.BookModel{*;}
+-keep class org.geometerplus.fbreader.book.Tag{*;}
+
+
+
+
+# Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
+# EnclosingMethod is required to use InnerClasses.
+-keepattributes Signature, InnerClasses, EnclosingMethod
+
+# Retrofit does reflection on method and parameter annotations.
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+
+# Retain service method parameters when optimizing.
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+
+# Ignore annotation used for build tooling.
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# Ignore JSR 305 annotations for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# Guarded by a NoClassDefFoundError try/catch and only used when on the classpath.
+-dontwarn kotlin.Unit
+
+# Top-level functions that can only be used by Kotlin.
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
+
+# With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
+# and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface <1>

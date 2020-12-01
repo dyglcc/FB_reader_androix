@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">英文原著</string>
+	<string name="empty_string"></string>
+    <string name="title_dialog">提示</string>
+	<string name="message_permission_always_failed">Please give us permission in the settings:\n\n%1$s</string>
+	<string name="setting">设置</string>
+	<string name="cancel">取消</string>
+	<string name="message_permission_rationale">Grant the following permissions to continue the program:\n\n%1$s</string>
+	<string name="resume">Resume</string>
+    <string name="nearby">内置经典好书</string>
+</resources>

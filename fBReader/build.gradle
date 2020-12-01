@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.aliyun.ams.emas-services'
+android {
+    compileSdkVersion rootProject.ext.compile_sdk_version
+    buildToolsVersion rootProject.ext.build_tool_version
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "com.dyg.android.reader"
+        minSdkVersion rootProject.ext.min_sdk_version
+        versionName rootProject.ext.version_name
+        versionCode rootProject.ext.version_code
+        targetSdkVersion rootProject.ext.target_sdk_version
+        multiDexEnabled true
+
+        ndk {
+            moduleName "jniLibs"
+            abiFilters "armeabi", "armeabi-v7a"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    sourceSets {
+        main {
+            jni.srcDirs = []
+        }
+    }
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                outputFileName = outputFileName.replace(".apk","-${rootProject.ext.version_name}-${rootProject.ext.version_code}.apk")
+            }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    implementation('androidx.legacy:legacy-support-v4:1.0.0') {
+        force = true
+    }
+    implementation files('libs/LingvoIntegration_2.5.2.12.jar')
+    implementation files('libs/httpmime-4.2.5.jar')
+    implementation files('libs/json-simple-1.1.1.jar')
+    implementation files('libs/nanohttpd-2.0.5.jar')
+    implementation files('libs/open-dictionary-api-1.2.1.jar')
+    implementation files('libs/pdfparse.jar')
+    implementation project(path: ':ambilWarna')
+    implementation(name: 'bugly_crashreport_upgrade-1.4.2', ext: "aar")
+    implementation project(path: ':code')
+//    compile(name:'abtest-release-190102-01',ext:'aar')
+    implementation project(':library')
+//    implementation (project(':library')){
+//        exclude module: 'support-v4'
+//    }
+//    implementation (name:'cmsdk-debug',ext:'aar')
+//    implementation (name:'ks-debug',ext:'aar')
+    implementation project(path: ':superToasts')
+    implementation project(path: ':translate_bd')
+    implementation(name: 'msa_mdid_1.0.13', ext: 'aar')
+//    implementation(name:'ks_adsdk_ad',ext:'aar')
+//    implementation(name:'alicloud-android-man-1.2.5',ext:'aar')
+//    compile 'com.google.code.gson:gson:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    // glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+//    implementation 'com.yanzhenjie:permission:2.0.3'
+    implementation project(path: ':permission')
+
+    implementation 'com.sspsdk.android.core:ssp_sdk_core:0.9.3_beta'
+    implementation 'com.sspsdk.android.csj:ssp_sdk_csj:0.9.3_beta_3.2.5.1'
+    implementation 'com.sspsdk.android.gdt:ssp_sdk_gdt:0.9.3_beta_4.270.1140.7'
+//    implementation 'com.sspsdk.android.ks:ssp_sdk_ks:0.9.3_beta_3.3.2'
+    implementation(name: 'ks-release', ext: 'aar')
+    implementation(name: 'ks_adsdk_ad-332', ext: 'aar')
+
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation project(path: ':guid-support')
+    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation (name:'abtest-5.4.1',ext:'aar')
+
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+
+
+}
